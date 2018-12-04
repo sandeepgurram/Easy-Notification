@@ -1,5 +1,6 @@
 package com.example.sandy.notifysample
 
+import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
@@ -10,20 +11,13 @@ import com.example.sandy.notifysample.EasyNotification.Companion.notificationId
 
 class PushNotification(private val context: Context) : EasyNotification {
 
-
     override var config: NotificationConfig = NotificationConfig.Companion.Builder().build()
 
-    override fun notify(title: String, content: String, detials: String, pendingIntent: PendingIntent?): Int {
 
-        notificationId++
-
-        var mBuilder = getBuilderWith(title, content, detials, pendingIntent)
-
+    private fun showNotification(id: Int, notification: Notification) {
         with(NotificationManagerCompat.from(context)) {
-            notify(notificationId, mBuilder.build())
+            notify(id, notification)
         }
-
-        return notificationId
     }
 
     private fun getBuilderWith(title: String, content: String, detials: String, pendingIntent: PendingIntent?) =
@@ -52,16 +46,29 @@ class PushNotification(private val context: Context) : EasyNotification {
         setGroup(config.group)
         setGroupSummary(config.isGroupSummary)
 
-
     }
 
+    override fun notify(title: String, content: String, detials: String, pendingIntent: PendingIntent?): Int {
 
-    override fun update(notificationId: Int,title: String, content: String, detials: String, pendingIntent: PendingIntent? ) {
+        notificationId++
+
         var mBuilder = getBuilderWith(title, content, detials, pendingIntent)
 
-        with(NotificationManagerCompat.from(context)) {
-            notify(EasyNotification.notificationId, mBuilder.build())
-        }
+        showNotification(notificationId, mBuilder.build())
+
+        return notificationId
+    }
+
+    override fun update(
+        notificationId: Int,
+        title: String,
+        content: String,
+        detials: String,
+        pendingIntent: PendingIntent?
+    ) {
+        var mBuilder = getBuilderWith(title, content, detials, pendingIntent)
+
+        showNotification(EasyNotification.notificationId, mBuilder.build())
     }
 
     /**
