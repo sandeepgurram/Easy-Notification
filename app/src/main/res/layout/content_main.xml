@@ -53,5 +53,11 @@
                 android:text="Picture Notification"
                 android:id="@+id/picture_notification"/>
 
+        <android.support.v7.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Converstion Notification"
+                android:id="@+id/conversation_notification"/>
+
     </LinearLayout>
 </ScrollView>

@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
 import android.support.annotation.DrawableRes
+import com.sandeep.easynotification.Conversation
 
 interface EasyNotification {
 
@@ -15,6 +16,11 @@ interface EasyNotification {
         title: String,
         content: String,
         expandedText: String = "",
+        pendingIntent: PendingIntent? = null
+    ): Int
+
+    fun notifyConversation(
+        conversationList: ArrayList<Conversation>,
         pendingIntent: PendingIntent? = null
     ): Int
 
@@ -33,7 +39,7 @@ interface EasyNotification {
         pendingIntent: PendingIntent? = null
     )
 
-  fun updateWithImage(
+    fun updateWithImage(
         notificationId: Int,
         title: String,
         content: String,

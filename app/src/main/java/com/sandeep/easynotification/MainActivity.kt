@@ -82,6 +82,12 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        conversation_notification.setOnClickListener {
+            simpleNotifier().notifyConversation(
+                arrayListOf(Conversation("pp1","content of 1"),Conversation("pp2","content of 2"),Conversation("pp3","content of 3"))
+            )
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -7,8 +7,10 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
+import android.support.v4.app.Person
 import android.text.TextUtils
 import com.example.sandy.notifysample.EasyNotification.Companion.notificationId
+import com.sandeep.easynotification.Conversation
 
 
 class PushNotification(private val context: Context) : EasyNotification {
@@ -30,23 +32,28 @@ class PushNotification(private val context: Context) : EasyNotification {
             if (!TextUtils.isEmpty(content))
                 setStyle(NotificationCompat.BigTextStyle().bigText(detials))
 
-            /* val person = Person.Builder().setName("Me").build()
-             val person2 = Person.Builder().setName("frnd").build()
-             setStyle(
-                 NotificationCompat.MessagingStyle(person).setConversationTitle("Team lunch")
-                     .addMessage("cc", 100.toLong(), person2)
-                     .addMessage("dd", 101.toLong(), person)
-                     .addMessage("dd", 101.toLong(), person)
-                     .addMessage("dd", 101.toLong(), person)
-                     .addMessage("dd", 101.toLong(), person)
-                     .addMessage("dd", 101.toLong(), person)
-                     .addMessage("ee", 102.toLong(), person2)
-             )*/
-
             pendingIntent?.let {
                 setContentIntent(pendingIntent)
             }
         }
+
+    private fun getBuilderWith(
+        conversationList: ArrayList<Conversation>,
+        pendingIntent: PendingIntent?
+    ) = getBuilder().apply {
+
+        val style = NotificationCompat.MessagingStyle(Person.Builder().setName(conversationList[0].title).build())
+            .setConversationTitle(conversationList[0].content)
+        conversationList.forEach {
+            style.addMessage(it.content, 100.toLong(), Person.Builder().setName(it.title).build())
+        }
+
+        setStyle(style)
+
+        pendingIntent?.let {
+            setContentIntent(pendingIntent)
+        }
+    }
 
     private fun getBuilderWith(title: String, content: String, image: Int, pendingIntent: PendingIntent?) =
         getBuilder().apply {
@@ -106,6 +113,20 @@ class PushNotification(private val context: Context) : EasyNotification {
 
         return notificationId
     }
+
+    override fun notifyConversation(
+        conversationList: ArrayList<Conversation>,
+        pendingIntent: PendingIntent?
+    ): Int {
+        notificationId++
+
+        var mBuilder = getBuilderWith(conversationList, pendingIntent)
+
+        showNotification(notificationId, mBuilder.build())
+
+        return notificationId
+    }
+
 
     override fun update(
         notificationId: Int,
