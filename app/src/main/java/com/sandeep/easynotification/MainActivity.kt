@@ -64,6 +64,14 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        heads_up.setOnClickListener {
+            headsUpNotifier().notify("Heads up notification","this is content")
+        }
+
+        picture_notification.setOnClickListener {
+            headsUpNotifier().notifyWithImage("Picture","Picture notification",R.drawable.notification_big_picture)
+        }
+
         fab.setOnClickListener { view ->
             headsUpNotifier().notify(
                 "Oyye",
