@@ -8,14 +8,24 @@ import android.os.Build
 
 interface EasyNotification {
 
-    var config : NotificationConfig
+    var config: NotificationConfig
 
-    fun notify(title: String,
-               content: String,
-               detials: String = "",
-               pendingIntent: PendingIntent? = null): Int
+    fun notify(
+        title: String,
+        content: String,
+        detials: String = "",
+        pendingIntent: PendingIntent? = null
+    ): Int
 
-    fun remove(notificationId : Int)
+    fun update(
+        notificationId: Int,
+        title: String,
+        content: String,
+        detials: String = "",
+        pendingIntent: PendingIntent? = null
+    )
+
+    fun remove(notificationId: Int)
 
     fun removeAll()
 

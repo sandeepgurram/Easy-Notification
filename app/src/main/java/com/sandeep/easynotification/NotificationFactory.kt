@@ -33,7 +33,6 @@ fun Context.channelNotifier(
     return notification
 }
 
-
 /**
  * From Android 7.0 (API level 24) and higher, the system automatically builds a summary for your group using snippets of text from each notification.
  * <br>

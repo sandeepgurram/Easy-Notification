@@ -17,17 +17,19 @@ class PushNotification(private val context: Context) : EasyNotification {
 
         notificationId++
 
-        var mBuilder = NotificationCompat.Builder(context, config.channel).apply {
+        var mBuilder = getBuilderWith(title, content, detials, pendingIntent)
 
-            setSmallIcon(config.icon)
+        with(NotificationManagerCompat.from(context)) {
+            notify(notificationId, mBuilder.build())
+        }
+
+        return notificationId
+    }
+
+    private fun getBuilderWith(title: String, content: String, detials: String, pendingIntent: PendingIntent?) =
+        getBuilder().apply {
             setContentTitle(title)
             setContentText(content)
-            priority = config.priority.ordinal
-            setAutoCancel(config.cancellable)
-            if (config.vibrate && Build.VERSION.SDK_INT >= 21)
-                setVibrate(config.vibrationPattern)
-
-            setCategory(NotificationCompat.CATEGORY_MESSAGE)
 
             if (!TextUtils.isEmpty(content))
                 setStyle(NotificationCompat.BigTextStyle().bigText(detials))
@@ -35,17 +37,31 @@ class PushNotification(private val context: Context) : EasyNotification {
             pendingIntent?.let {
                 setContentIntent(pendingIntent)
             }
-
-            setGroup(config.group)
-            setGroupSummary(config.isGroupSummary)
-
         }
+
+    private fun getBuilder() = NotificationCompat.Builder(context, config.channel).apply {
+
+        setSmallIcon(config.icon)
+        priority = config.priority.ordinal
+        setAutoCancel(config.cancellable)
+        if (config.vibrate && Build.VERSION.SDK_INT >= 21)
+            setVibrate(config.vibrationPattern)
+
+        setCategory(NotificationCompat.CATEGORY_MESSAGE)
+
+        setGroup(config.group)
+        setGroupSummary(config.isGroupSummary)
+
+
+    }
+
+
+    override fun update(notificationId: Int,title: String, content: String, detials: String, pendingIntent: PendingIntent? ) {
+        var mBuilder = getBuilderWith(title, content, detials, pendingIntent)
 
         with(NotificationManagerCompat.from(context)) {
-            notify(notificationId, mBuilder.build())
+            notify(EasyNotification.notificationId, mBuilder.build())
         }
-
-        return notificationId
     }
 
     /**

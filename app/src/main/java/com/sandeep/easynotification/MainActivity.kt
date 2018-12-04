@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.example.sandy.notifysample.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         EasyNotification.init(this)
 
         channel_1_grp_1.setOnClickListener {
-            channelNotifier(CHANNEL_ID_1, GROUP_1).notify(
+            compactChannelNotifier(CHANNEL_ID_1, GROUP_1).notify(
                 "Hello",
                 "Channel 1",
                 "For more information about how to create a notification with these features and more, read Create a Notification.\n" +
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         channel_1_grp_1_summary.setOnClickListener {
-            channelNotifier(CHANNEL_ID_1, GROUP_1, true).notify(
+            compactChannelNotifier(CHANNEL_ID_1, GROUP_1, true).notify(
                 "Group Notification",
                 "This is small summary",
                 "This is group summary. This is group summary. This is group summary. This is group summary. This is group summary. This is group summary."
@@ -36,13 +37,30 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        var channel2Id = 0
         channel_2.setOnClickListener {
-            channelNotifier(CHANNEL_ID_1, GROUP_2).notify(
+            channel2Id = channelNotifier(CHANNEL_ID_2).notify(
                 "Hello",
                 "Channel 2",
                 "For more information about how to create a notification with these features and more, read Create a Notification.\n" +
                         "Notification actions\n" +
                         "Although it's not required, every notification should open an appropriate app activity when tapped. In addition to this default notification action, you can add action buttons that complete an app-related task from the notification (often without opening an activity), as shown in figure 9."
+            )
+
+            channel_2_update.visibility = View.VISIBLE
+        }
+
+        channel_2_update.visibility = View.GONE
+        channel_2_update.setOnClickListener {
+            channelNotifier(CHANNEL_ID_2).update(
+                channel2Id,
+                "Update",
+                "This is channle 2 update",
+                "For more information about how to create a notification with these features and more, read Create a Notification.\n" +
+                        "Notification actions\n" +
+                        "Although it's not required, every notification should open an appropriate app activity when tapped. " +
+                        "In addition to this default notification action, you can add action buttons that complete an app-related task from the notification " +
+                        "(often without opening an activity), as shown in figure 9."
             )
         }
 
