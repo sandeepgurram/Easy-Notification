@@ -3,44 +3,48 @@ package com.example.sandy.notifysample
 import android.support.annotation.DrawableRes
 import com.sandeep.easynotification.R
 
-class NotificationConfig {
-
-    private constructor()
-
-    private constructor(builder: Builder) {
-        this.builder = builder
-        this.icon = builder.icon
-        this.sound = builder.sound
-        this.cancellable = builder.cancellable
-        this.priority = Priority.DEFAULT
-        this.channel = builder.channel
-    }
-
-    lateinit var builder: Builder
+class NotificationConfig private constructor(val builder: Builder) {
 
     @DrawableRes
-    var icon: Int = R.drawable.ic_launcher_background
+    var icon: Int = builder.icon
         private set(value) {}
-    var sound: String? = null
+    var sound: String? = builder.sound
         private set(value) {}
-    var cancellable = true
+    var cancellable = builder.cancellable
         private set(value) {}
-    var priority: Priority = Priority.DEFAULT
+    var priority: Priority = builder.priority
         private set(value) {}
-    var channel = EasyNotification.CHANNEL_ID_1
+    var channel = builder.channel
         private set(value) {}
-
+    var vibrationPattern = builder.vibrationPattern
+        private set(value) {}
+    var vibrate = builder.vibrate
+        private set(value) {}
 
     companion object {
 
         class Builder {
 
+            /**
+             * using SVG causes crash in few devices(android 5 may be). This is know issue.
+             * Suggest to use only PNG
+             */
             @DrawableRes
-            internal var icon: Int = R.drawable.ic_launcher_background
+            internal var icon: Int = R.drawable.ic_notifier
             internal var sound: String? = null
             internal var cancellable = true
             internal var priority: Priority = Priority.DEFAULT
             internal var channel = EasyNotification.CHANNEL_ID_1
+            internal var vibrationPattern = longArrayOf(100, 100, 100) //default vibrate pattern
+            internal var vibrate = false
+
+            fun setVibrationPattern(pattern: LongArray) = apply {
+                this.vibrationPattern = pattern
+            }
+
+            fun setVibration(shouldVibrate: Boolean) = apply {
+                this.vibrate = shouldVibrate
+            }
 
             fun setIcon(@DrawableRes icon: Int) = apply {
                 this.icon = icon
@@ -64,11 +68,7 @@ class NotificationConfig {
             }
 
             fun build(): NotificationConfig {
-
                 return NotificationConfig(this)
-                val notificationConfig = NotificationConfig()
-
-                return notificationConfig
             }
 
         }

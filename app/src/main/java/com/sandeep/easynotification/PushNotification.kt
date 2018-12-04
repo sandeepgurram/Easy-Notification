@@ -2,31 +2,32 @@ package com.example.sandy.notifysample
 
 import android.app.PendingIntent
 import android.content.Context
+import android.os.Build
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.text.TextUtils
-import com.example.sandy.notifysample.EasyNotification.Companion.CHANNEL_ID_1
 import com.example.sandy.notifysample.EasyNotification.Companion.notificationId
 
 class PushNotification(private val context: Context) : EasyNotification {
 
 
-    override var config: NotificationConfig = NotificationConfig.Companion.Builder()
-        .setCancellable(true)
-        .setIcon(R.drawable.ic_launcher_foreground)
-        .build()
+    override var config: NotificationConfig = NotificationConfig.Companion.Builder().build()
 
     override fun notify(title: String, content: String, detials: String, pendingIntent: PendingIntent?): Int {
 
         notificationId++
 
-        var mBuilder = NotificationCompat.Builder(context, CHANNEL_ID_1).apply {
+        var mBuilder = NotificationCompat.Builder(context, config.channel).apply {
 
             setSmallIcon(config.icon)
             setContentTitle(title)
             setContentText(content)
-            priority = config.priority
+            priority = config.priority.ordinal
             setAutoCancel(config.cancellable)
+            if (config.vibrate && Build.VERSION.SDK_INT >= 21)
+                setVibrate(config.vibrationPattern)
+
+            setCategory(NotificationCompat.CATEGORY_MESSAGE)
 
             if (!TextUtils.isEmpty(content))
                 setStyle(NotificationCompat.BigTextStyle().bigText(detials))
@@ -44,6 +45,9 @@ class PushNotification(private val context: Context) : EasyNotification {
         return notificationId
     }
 
+    /**
+     * Pass the id returned by @notify
+     */
     override fun remove(notificationId: Int) {
         with(NotificationManagerCompat.from(context)) {
             cancel(notificationId)

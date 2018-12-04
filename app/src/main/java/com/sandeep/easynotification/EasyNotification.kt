@@ -28,7 +28,7 @@ interface EasyNotification {
 
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
-        fun initNotificationChannel(context: Context) {
+        fun init(context: Context) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
                 createNoticationChannelWith(
