@@ -6,20 +6,15 @@ import com.sandeep.easynotification.R
 class NotificationConfig private constructor(val builder: Builder) {
 
     @DrawableRes
-    var icon: Int = builder.icon
-        private set(value) {}
-    var sound: String? = builder.sound
-        private set(value) {}
-    var cancellable = builder.cancellable
-        private set(value) {}
-    var priority: Priority = builder.priority
-        private set(value) {}
-    var channel = builder.channel
-        private set(value) {}
-    var vibrationPattern = builder.vibrationPattern
-        private set(value) {}
-    var vibrate = builder.vibrate
-        private set(value) {}
+    val icon: Int = builder.icon
+    val sound: String? = builder.sound
+    val cancellable = builder.cancellable
+    val priority: Priority = builder.priority
+    val channel = builder.channel
+    val vibrationPattern = builder.vibrationPattern
+    val vibrate = builder.vibrate
+    val group = builder.group
+    val isGroupSummary = builder.isGroupSummary
 
     companion object {
 
@@ -34,9 +29,19 @@ class NotificationConfig private constructor(val builder: Builder) {
             internal var sound: String? = null
             internal var cancellable = true
             internal var priority: Priority = Priority.DEFAULT
-            internal var channel = EasyNotification.CHANNEL_ID_1
+            internal var channel = CHANNEL_ID_1
             internal var vibrationPattern = longArrayOf(100, 100, 100) //default vibrate pattern
             internal var vibrate = false
+            internal var group = ""
+            internal var isGroupSummary = false
+
+            fun isGroupSummary(value: Boolean) = apply {
+                this.isGroupSummary = value
+            }
+
+            fun setGroup(groupName: String) = apply {
+                this.group = groupName
+            }
 
             fun setVibrationPattern(pattern: LongArray) = apply {
                 this.vibrationPattern = pattern

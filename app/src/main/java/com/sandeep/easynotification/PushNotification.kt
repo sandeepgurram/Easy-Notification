@@ -36,6 +36,9 @@ class PushNotification(private val context: Context) : EasyNotification {
                 setContentIntent(pendingIntent)
             }
 
+            setGroup(config.group)
+            setGroupSummary(config.isGroupSummary)
+
         }
 
         with(NotificationManagerCompat.from(context)) {

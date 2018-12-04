@@ -21,9 +21,6 @@ interface EasyNotification {
 
     companion object {
 
-        const val CHANNEL_ID_1 = "notification-1"
-        const val CHANNEL_ID_2 = "notification-2"
-
         var notificationId: Int = 100
 
         // Create the NotificationChannel, but only on API 26+ because
