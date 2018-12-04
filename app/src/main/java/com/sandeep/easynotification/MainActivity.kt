@@ -73,13 +73,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         fab.setOnClickListener { view ->
-            headsUpNotifier().notify(
-                "Oyye",
-                "Hello bro",
-                "For more information about how to create a notification with these features and more, read Create a Notification.\n" +
-                        "Notification actions\n" +
-                        "Although it's not required, every notification should open an appropriate app activity when tapped. In addition to this default notification action, you can add action buttons that complete an app-related task from the notification (often without opening an activity), as shown in figure 9."
-            )
+            simpleNotifier().removeAll()
         }
 
         conversation_notification.setOnClickListener {
