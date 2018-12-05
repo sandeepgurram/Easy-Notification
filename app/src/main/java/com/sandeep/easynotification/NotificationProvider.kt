@@ -1,19 +1,31 @@
 package com.example.sandy.notifysample
 
 import android.content.Context
+import android.os.Build
 import android.text.TextUtils
 import android.widget.RemoteViews
 import com.sandeep.easynotification.*
+import com.sandeep.easynotification.EasyNotification.Companion.channels
+import com.sandeep.easynotification.EasyNotification.Companion.defaultChannel
 
 
-fun Context.simpleNotifier() = PushNotification(this)
+fun Context.simpleNotifier(): PushNotification {
+
+    val notification = PushNotification(this)
+
+    notification.config = NotificationConfig.Companion.Builder().apply {
+
+        setChannel(getChannelID())
+    }.build()
+
+    return notification
+}
 
 fun Context.headsUpNotifier(channelID: String = ""): PushNotification {
     val notification = PushNotification(this)
 
     notification.config = NotificationConfig.Companion.Builder().apply {
-        if (!TextUtils.isEmpty(channelID))
-            setChannel(channelID)
+        setChannel(getChannelID(channelID))
         setPriority(Priority.HIGH)
         setVibration(true)
     }.build()
@@ -28,7 +40,7 @@ fun Context.channelNotifier(
 
     notification.config = NotificationConfig.Companion.Builder().apply {
 
-        setChannel(channelID)
+        setChannel(getChannelID(channelID))
 
     }.build()
 
@@ -40,16 +52,15 @@ fun Context.channelNotifier(
  * <br>
  * To support older versions, which cannot show a nested group of notifications, you must create an extra notification that acts as the summary
  */
-fun Context.compactChannelNotifier(
-    channelID: String,
-    groupName: String? = null,
+fun Context.compactNotifier(
+    channelID: String = "", groupName: String? = null,
     isGroupSummary: Boolean = false
 ): PushNotification {
     val notification = PushNotification(this)
 
-    notification.config = channelNotifier(channelID).config.builder.apply {
+    notification.config = simpleNotifier().config.builder.apply {
 
-        setChannel(channelID)
+        setChannel(getChannelID(channelID))
 
         if (!TextUtils.isEmpty(groupName)) {
             setGroup(groupName!!)
@@ -61,13 +72,33 @@ fun Context.compactChannelNotifier(
     return notification
 }
 
+private fun getChannelID(channelID: String? = null): String {
+
+    if (channels?.size ?: 0 == 0)
+        throw Throwable("Notification channels are not initialised")
+
+    var channelId = ""
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (TextUtils.isEmpty(channelID)) {
+            channelId = defaultChannel!!.channelId
+        } else {
+            channelId = channelID!!
+        }
+
+    }
+    return channelId
+}
+
 fun Context.fixedNotification(channelID: String = "", headsUp: Boolean = false): PushNotification {
     val notification = PushNotification(this)
 
     notification.config = NotificationConfig.Companion.Builder().apply {
 
         setCancellable(false)
-        if (!TextUtils.isEmpty(channelID)) setChannel(channelID)
+
+        setChannel(getChannelID(channelID))
+
         if (headsUp) {
             setPriority(Priority.HIGH)
             setVibration(true)
@@ -94,8 +125,7 @@ fun Context.customViewNotification(
         )
 
     customPushNotification.config = NotificationConfig.Companion.Builder().apply {
-        if (!TextUtils.isEmpty(channelID))
-            setChannel(channelID)
+        setChannel(getChannelID(channelID))
         setPriority(Priority.HIGH)
         setVibration(true)
     }.build()
@@ -103,4 +133,5 @@ fun Context.customViewNotification(
     return customPushNotification
 
 }
+
 

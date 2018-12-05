@@ -29,7 +29,7 @@ class NotificationConfig private constructor(val builder: Builder) {
             internal var sound: String? = null
             internal var cancellable = true
             internal var priority: Priority = Priority.DEFAULT
-            internal var channel = CHANNEL_ID_1
+            internal var channel = ""
             internal var vibrationPattern = longArrayOf(100, 100, 100) //default vibrate pattern
             internal var vibrate = false
             internal var group = ""

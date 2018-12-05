@@ -60,14 +60,27 @@ interface EasyNotification {
 
         var notificationId: Int = 100
 
+        var channels: ArrayList<Channel>? = null
+        var defaultChannel: Channel? = null
+
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         fun init(context: Context, channelsList: ArrayList<Channel>) {
+
+            if (channelsList.size ?: 0 <= 0) {
+                throw Throwable("Channels list is empty, add minium one channel")
+                return
+            }
+
+            channels = channelsList
+            defaultChannel = channels!![0]
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 channelsList.forEach {
                     createNoticationChannelWith(
                         context, it.channelId, it.name, it.description, it.importance.ordinal
                     )
+                    if (it.isDefaulf)
+                        defaultChannel = it
                 }
             }
         }
@@ -80,7 +93,7 @@ interface EasyNotification {
         ) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val channel = NotificationChannel(channelId, name, importance).apply {
+                val channel = NotificationChannel(channelId, name, NotificationManager.IMPORTANCE_HIGH).apply {
                     description = descriptionText
                 }
                 // Register the channel with the system
@@ -90,5 +103,6 @@ interface EasyNotification {
             }
         }
     }
+
 
 }

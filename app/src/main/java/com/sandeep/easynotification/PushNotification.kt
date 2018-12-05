@@ -1,6 +1,8 @@
 package  com.sandeep.easynotification
 
 import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -9,7 +11,6 @@ import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.app.Person
 import android.text.TextUtils
-import android.widget.RemoteViews
 import com.sandeep.easynotification.EasyNotification.Companion.notificationId
 
 
@@ -186,7 +187,7 @@ open class PushNotification(protected val context: Context) : EasyNotification {
     ) {
         var mBuilder = getBuilderWith(title, content, detials, pendingIntent, actions)
 
-        showNotification(EasyNotification.notificationId, mBuilder.build())
+        showNotification(notificationId, mBuilder.build())
     }
 
     override fun updateWithImage(
@@ -199,7 +200,7 @@ open class PushNotification(protected val context: Context) : EasyNotification {
     ) {
         var mBuilder = getBuilderWith(title, content, image, pendingIntent, actions)
 
-        showNotification(EasyNotification.notificationId, mBuilder.build())
+        showNotification(notificationId, mBuilder.build())
     }
 
     /**
@@ -216,4 +217,5 @@ open class PushNotification(protected val context: Context) : EasyNotification {
             cancelAll()
         }
     }
+
 }

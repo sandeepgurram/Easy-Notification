@@ -10,8 +10,6 @@ enum class Priority(priority: Int) {
     MAX(NotificationCompat.PRIORITY_MAX)
 }
 
-const val CHANNEL_ID_1 = "notification-1"
-const val CHANNEL_ID_2 = "notification-2"
 
 const val GROUP_1 = "group-1"
 const val GROUP_2 = "group-2"
