@@ -1,4 +1,4 @@
-package com.example.sandy.notifysample
+package  com.sandeep.easynotification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -6,9 +6,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
 import android.support.annotation.DrawableRes
-import com.sandeep.easynotification.Channel
-import com.sandeep.easynotification.Conversation
-import com.sandeep.easynotification.NotificationAction
 
 interface EasyNotification {
 

@@ -1,4 +1,4 @@
-package com.example.sandy.notifysample
+package  com.sandeep.easynotification
 
 import android.support.v4.app.NotificationCompat
 

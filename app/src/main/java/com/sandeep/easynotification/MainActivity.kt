@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.RemoteViews
 import com.example.sandy.notifysample.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -72,25 +73,40 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        heads_up.setOnClickListener {
-            headsUpNotifier().notify("Heads up notification", "this is content")
-        }
-
         val intent = Intent(this, SecondActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
+
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+
+        heads_up.setOnClickListener {
+            headsUpNotifier().notify("Heads up notification", "this is content", pendingIntent = pendingIntent)
+        }
 
         picture_notification.setOnClickListener {
             headsUpNotifier().notifyWithImage(
                 title = "Picture", content = "Picture notification", image = R.drawable.notification_img,
-                actions = arrayListOf(NotificationAction(name = "Btn", pendingIntent = pendingIntent),NotificationAction(name = "Btn2", pendingIntent = pendingIntent)
-                ,NotificationAction(name = "Btn3", pendingIntent = pendingIntent),NotificationAction(name = "Btn4", pendingIntent = pendingIntent))
+                actions = arrayListOf(
+                    NotificationAction(name = "Btn", pendingIntent = pendingIntent),
+                    NotificationAction(name = "Btn2", pendingIntent = pendingIntent, icon = R.drawable.ic_notifier),
+                    NotificationAction(name = "Btn3", pendingIntent = pendingIntent),
+                    NotificationAction(name = "Btn4", icon = R.drawable.ic_notifier, pendingIntent = pendingIntent)
+                )
             )
         }
 
-        fab.setOnClickListener { view ->
-            simpleNotifier().removeAll()
+        custom_notification.setOnClickListener {
+            val notificationLayout = RemoteViews("com.sandeep.easynotification", R.layout.notification_small)
+            val notificationLayoutExpanded = RemoteViews("com.sandeep.easynotification", R.layout.notification_big)
+
+//            notificationLayout.setTextViewText(R.id.notification_title, "This is text")
+
+            customViewNotification(
+                "channel-1",
+                notificationLayout = notificationLayout,
+                notificationLayoutExpanded = notificationLayoutExpanded
+            )
+                .notify("", "")
         }
 
         conversation_notification.setOnClickListener {
@@ -102,6 +118,11 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         }
+
+        fab.setOnClickListener {
+            simpleNotifier().removeAll()
+        }
+
 
     }
 

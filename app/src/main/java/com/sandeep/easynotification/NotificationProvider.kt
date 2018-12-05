@@ -2,6 +2,8 @@ package com.example.sandy.notifysample
 
 import android.content.Context
 import android.text.TextUtils
+import android.widget.RemoteViews
+import com.sandeep.easynotification.*
 
 
 fun Context.simpleNotifier() = PushNotification(this)
@@ -74,5 +76,31 @@ fun Context.fixedNotification(channelID: String = "", headsUp: Boolean = false):
     }.build()
 
     return notification
+}
+
+fun Context.customViewNotification(
+    channelID: String,
+    notificationLayoutExpanded: RemoteViews?,
+    notificationLayout: RemoteViews?,
+    fullCustomised: Boolean = false
+): EasyNotification {
+
+    val customPushNotification =
+        CustomPushNotification(
+            this,
+            notificationLayout = notificationLayout,
+            notificationLayoutExpanded = notificationLayoutExpanded,
+            fullCustomised = fullCustomised
+        )
+
+    customPushNotification.config = NotificationConfig.Companion.Builder().apply {
+        if (!TextUtils.isEmpty(channelID))
+            setChannel(channelID)
+        setPriority(Priority.HIGH)
+        setVibration(true)
+    }.build()
+
+    return customPushNotification
+
 }
 

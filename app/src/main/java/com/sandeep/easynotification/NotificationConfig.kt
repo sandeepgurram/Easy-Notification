@@ -1,4 +1,4 @@
-package com.example.sandy.notifysample
+package  com.sandeep.easynotification
 
 import android.support.annotation.DrawableRes
 import com.sandeep.easynotification.R
@@ -21,8 +21,8 @@ class NotificationConfig private constructor(val builder: Builder) {
         class Builder {
 
             /**
-             * using SVG causes crash in few devices(android 5 may be). This is know issue.
-             * Suggest to use only PNG
+             * using SVG causes crash in few devices. This is know issue.
+             * Suggest to use only PNG or don't use PNG :P
              */
             @DrawableRes
             internal var icon: Int = R.drawable.ic_notifier

@@ -59,5 +59,11 @@
                 android:text="Converstion Notification"
                 android:id="@+id/conversation_notification"/>
 
+        <android.support.v7.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Custom Notification"
+                android:id="@+id/custom_notification"/>
+
     </LinearLayout>
 </ScrollView>

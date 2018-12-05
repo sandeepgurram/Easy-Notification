@@ -1,4 +1,4 @@
-package com.sandeep.easynotification
+package  com.sandeep.easynotification
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar

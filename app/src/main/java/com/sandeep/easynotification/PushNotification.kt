@@ -1,4 +1,4 @@
-package com.example.sandy.notifysample
+package  com.sandeep.easynotification
 
 import android.app.Notification
 import android.app.PendingIntent
@@ -9,12 +9,11 @@ import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.app.Person
 import android.text.TextUtils
-import com.example.sandy.notifysample.EasyNotification.Companion.notificationId
-import com.sandeep.easynotification.Conversation
-import com.sandeep.easynotification.NotificationAction
+import android.widget.RemoteViews
+import com.sandeep.easynotification.EasyNotification.Companion.notificationId
 
 
-class PushNotification(private val context: Context) : EasyNotification {
+open class PushNotification(protected val context: Context) : EasyNotification {
 
     override var config: NotificationConfig = NotificationConfig.Companion.Builder().build()
 
@@ -73,7 +72,7 @@ class PushNotification(private val context: Context) : EasyNotification {
         }
     }
 
-    private fun getBuilderWith(
+    protected fun getBuilderWith(
         title: String, content: String, image: Int, pendingIntent: PendingIntent?,
         actions: ArrayList<NotificationAction>?
     ) =
@@ -97,7 +96,7 @@ class PushNotification(private val context: Context) : EasyNotification {
 
         }
 
-    private fun getBuilder(
+    open fun getBuilder(
         pendingIntent: PendingIntent?,
         actions: ArrayList<NotificationAction>?
     ) = NotificationCompat.Builder(context, config.channel).apply {
@@ -132,7 +131,7 @@ class PushNotification(private val context: Context) : EasyNotification {
         actions: ArrayList<NotificationAction>?
     ): Int {
 
-        notificationId++
+        incrementNotificationCount()
 
         var mBuilder = getBuilderWith(title, content, expandedText, pendingIntent, actions)
 
@@ -148,10 +147,10 @@ class PushNotification(private val context: Context) : EasyNotification {
         pendingIntent: PendingIntent?,
         actions: ArrayList<NotificationAction>?
     ): Int {
-        notificationId++
+        incrementNotificationCount()
 
         var mBuilder =
-            getBuilderWith(title, content, image, pendingIntent,actions)
+            getBuilderWith(title, content, image, pendingIntent, actions)
 
         showNotification(notificationId, mBuilder.build())
 
@@ -163,13 +162,17 @@ class PushNotification(private val context: Context) : EasyNotification {
         pendingIntent: PendingIntent?,
         actions: ArrayList<NotificationAction>?
     ): Int {
-        notificationId++
+        incrementNotificationCount()
 
-        var mBuilder = getBuilderWith(conversationList, pendingIntent,actions)
+        var mBuilder = getBuilderWith(conversationList, pendingIntent, actions)
 
         showNotification(notificationId, mBuilder.build())
 
         return notificationId
+    }
+
+    protected fun incrementNotificationCount() {
+        notificationId++
     }
 
 
@@ -181,7 +184,7 @@ class PushNotification(private val context: Context) : EasyNotification {
         pendingIntent: PendingIntent?,
         actions: ArrayList<NotificationAction>?
     ) {
-        var mBuilder = getBuilderWith(title, content, detials, pendingIntent,actions)
+        var mBuilder = getBuilderWith(title, content, detials, pendingIntent, actions)
 
         showNotification(EasyNotification.notificationId, mBuilder.build())
     }
@@ -194,7 +197,7 @@ class PushNotification(private val context: Context) : EasyNotification {
         pendingIntent: PendingIntent?,
         actions: ArrayList<NotificationAction>?
     ) {
-        var mBuilder = getBuilderWith(title, content, image, pendingIntent,actions)
+        var mBuilder = getBuilderWith(title, content, image, pendingIntent, actions)
 
         showNotification(EasyNotification.notificationId, mBuilder.build())
     }
