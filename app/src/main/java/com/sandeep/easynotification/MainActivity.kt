@@ -16,7 +16,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        EasyNotification.init(this)
+        val channelList = arrayListOf(
+            Channel("channel", "Channel 1", "Description of channel"),
+            Channel("channel2", "Channel 2", "Description of channel 2"),
+            Channel("channel3", "Channel 3", "Description of channel 3")
+        )
+
+        EasyNotification.init(this, channelList)
 
         channel_1_grp_1.setOnClickListener {
             compactChannelNotifier(CHANNEL_ID_1, GROUP_1).notify(
@@ -65,11 +71,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         heads_up.setOnClickListener {
-            headsUpNotifier().notify("Heads up notification","this is content")
+            headsUpNotifier().notify("Heads up notification", "this is content")
         }
 
         picture_notification.setOnClickListener {
-            headsUpNotifier().notifyWithImage("Picture","Picture notification",R.drawable.notification_big_picture)
+            headsUpNotifier().notifyWithImage("Picture", "Picture notification", R.drawable.notification_big_picture)
         }
 
         fab.setOnClickListener { view ->
@@ -78,7 +84,11 @@ class MainActivity : AppCompatActivity() {
 
         conversation_notification.setOnClickListener {
             simpleNotifier().notifyConversation(
-                arrayListOf(Conversation("pp1","content of 1"),Conversation("pp2","content of 2"),Conversation("pp3","content of 3"))
+                arrayListOf(
+                    Conversation("pp1", "content of 1"),
+                    Conversation("pp2", "content of 2"),
+                    Conversation("pp3", "content of 3")
+                )
             )
         }
 

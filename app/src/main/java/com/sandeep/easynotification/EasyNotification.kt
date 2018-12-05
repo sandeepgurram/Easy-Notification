@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
 import android.support.annotation.DrawableRes
+import com.sandeep.easynotification.Channel
 import com.sandeep.easynotification.Conversation
 
 interface EasyNotification {
@@ -57,17 +58,13 @@ interface EasyNotification {
 
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
-        fun init(context: Context) {
+        fun init(context: Context, channelsList: ArrayList<Channel>) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-                createNoticationChannelWith(
-                    context, CHANNEL_ID_1, "Channel name", "Channel description", NotificationManager.IMPORTANCE_DEFAULT
-                )
-
-                createNoticationChannelWith(
-                    context, CHANNEL_ID_2, "Channel name", "Channel description", NotificationManager.IMPORTANCE_DEFAULT
-                )
-
+                channelsList.forEach {
+                    createNoticationChannelWith(
+                        context, it.channelId, it.name, it.description, it.importance.ordinal
+                    )
+                }
             }
         }
 
