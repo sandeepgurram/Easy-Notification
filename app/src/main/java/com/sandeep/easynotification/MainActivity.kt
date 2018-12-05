@@ -27,13 +27,20 @@ class MainActivity : AppCompatActivity() {
         val channelList = arrayListOf(
             Channel("channel", "Channel 1", "Description of channel"),
             Channel("channel2", "Channel 2", "Description of channel 2", isDefaulf = true),
+            Channel("channel3", "Channel 2", "Description of channel 3",importance = ChannelImportance.IMPORTANCE_HIGH, isDefaulf = true),
             Channel("channel3", "Channel 3", "Description of channel 3")
         )
 
         init(this, channelList)
 
+        val simpleNotifier = simpleNotifier()
+        val compactNotification = compactNotifier(groupName = GROUP_1)
+        val compactNotificationGroup = compactNotifier(groupName = GROUP_1, isGroupSummary = true)
+        val channel2Notifier = channelNotifier(channel2)
+        val channel3Notifier = channelNotifier(channel3)
+
         channel_1_grp_1.setOnClickListener {
-            compactNotifier(groupName = GROUP_1).notify(
+            compactNotification.notify(
                 "Hello",
                 "Channel 1",
                 "For more information about how to create a notification with these features and more, read Create a Notification.\n" +
@@ -43,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         channel_1_grp_1_summary.setOnClickListener {
-            compactNotifier(groupName = GROUP_1, isGroupSummary = true).notify(
+            compactNotificationGroup.notify(
                 "Group Notification",
                 "This is small summary",
                 "This is group summary. This is group summary. This is group summary. This is group summary. This is group summary. This is group summary."
@@ -53,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
         var channel2Id = 0
         channel_2.setOnClickListener {
-            channel2Id = channelNotifier(channel2).notify(
+            channel2Id = channel2Notifier.notify(
                 "Hello",
                 "Channel 2",
                 "For more information about how to create a notification with these features and more, read Create a Notification.\n" +
@@ -66,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
         channel_2_update.visibility = View.GONE
         channel_2_update.setOnClickListener {
-            channelNotifier(channel2).update(
+            channel2Notifier.update(
                 channel2Id,
                 "Update",
                 "This is channle 2 update",
@@ -85,11 +92,11 @@ class MainActivity : AppCompatActivity() {
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
         heads_up.setOnClickListener {
-            headsUpNotifier().notify("Heads up notification", "this is content", pendingIntent = pendingIntent)
+            channel3Notifier.notify("Heads up notification", "this is content", pendingIntent = pendingIntent)
         }
 
         picture_notification.setOnClickListener {
-            headsUpNotifier().notifyWithImage(
+            channel3Notifier.notifyWithImage(
                 title = "Picture", content = "Picture notification", image = R.drawable.notification_img,
                 actions = arrayListOf(
                     NotificationAction(name = "Btn", pendingIntent = pendingIntent),
@@ -125,7 +132,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         fab.setOnClickListener {
-            simpleNotifier().removeAll()
+            simpleNotifier.removeAll()
         }
 
 

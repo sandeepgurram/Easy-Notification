@@ -1,6 +1,8 @@
 package com.sandeep.easynotification
 
 import android.app.NotificationManager
+import android.os.Build
+import android.support.annotation.RequiresApi
 
 data class Channel(
     val channelId: String,
@@ -10,6 +12,7 @@ data class Channel(
     val isDefaulf: Boolean = false
 )
 
+@RequiresApi(Build.VERSION_CODES.N)
 enum class ChannelImportance(i: Int) {
     IMPORTANCE_DEFAULT(NotificationManager.IMPORTANCE_DEFAULT),
     IMPORTANCE_HIGH(NotificationManager.IMPORTANCE_HIGH),

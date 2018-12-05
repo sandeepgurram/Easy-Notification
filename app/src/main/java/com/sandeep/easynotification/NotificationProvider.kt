@@ -21,7 +21,7 @@ fun Context.simpleNotifier(): PushNotification {
     return notification
 }
 
-fun Context.headsUpNotifier(channelID: String = ""): PushNotification {
+/*fun Context.headsUpNotifier(channelID: String = ""): PushNotification {
     val notification = PushNotification(this)
 
     notification.config = NotificationConfig.Companion.Builder().apply {
@@ -31,7 +31,7 @@ fun Context.headsUpNotifier(channelID: String = ""): PushNotification {
     }.build()
 
     return notification
-}
+}*/
 
 fun Context.channelNotifier(
     channelID: String

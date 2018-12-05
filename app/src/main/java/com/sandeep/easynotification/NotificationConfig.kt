@@ -1,7 +1,7 @@
 package  com.sandeep.easynotification
 
+import android.os.Build
 import android.support.annotation.DrawableRes
-import com.sandeep.easynotification.R
 
 class NotificationConfig private constructor(val builder: Builder) {
 
@@ -33,10 +33,15 @@ class NotificationConfig private constructor(val builder: Builder) {
             internal var vibrationPattern = longArrayOf(100, 100, 100) //default vibrate pattern
             internal var vibrate = false
             internal var group = ""
-            internal var isGroupSummary = false
+
+            /**
+             * For supporting in devices 4.x, group summary should be true
+             * This is hack.
+             */
+            internal var isGroupSummary = Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP
 
             fun isGroupSummary(value: Boolean) = apply {
-                this.isGroupSummary = value
+                this.isGroupSummary = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) value else true
             }
 
             fun setGroup(groupName: String) = apply {

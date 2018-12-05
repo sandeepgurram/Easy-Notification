@@ -93,7 +93,7 @@ interface EasyNotification {
         ) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val channel = NotificationChannel(channelId, name, NotificationManager.IMPORTANCE_HIGH).apply {
+                val channel = NotificationChannel(channelId, name, importance).apply {
                     description = descriptionText
                 }
                 // Register the channel with the system
