@@ -1,4 +1,4 @@
-package com.sandeep.easynotification
+package com.sandeep.easynotification.notification.models
 
 import android.app.NotificationManager
 import android.os.Build

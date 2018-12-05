@@ -8,8 +8,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.RemoteViews
-import com.example.sandy.notifysample.*
-import com.sandeep.easynotification.EasyNotification.Companion.init
+import com.sandeep.easynotification.notification.*
+import com.sandeep.easynotification.notification.EasyNotification.Companion.init
+import com.sandeep.easynotification.notification.models.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -26,9 +27,24 @@ class MainActivity : AppCompatActivity() {
 
         val channelList = arrayListOf(
             Channel("channel", "Channel 1", "Description of channel"),
-            Channel("channel2", "Channel 2", "Description of channel 2", isDefaulf = true),
-            Channel("channel3", "Channel 2", "Description of channel 3",importance = ChannelImportance.IMPORTANCE_HIGH, isDefaulf = true),
-            Channel("channel3", "Channel 3", "Description of channel 3")
+            Channel(
+                "channel2",
+                "Channel 2",
+                "Description of channel 2",
+                isDefaulf = true
+            ),
+            Channel(
+                "channel3",
+                "Channel 2",
+                "Description of channel 3",
+                importance = ChannelImportance.IMPORTANCE_HIGH,
+                isDefaulf = true
+            ),
+            Channel(
+                "channel3",
+                "Channel 3",
+                "Description of channel 3"
+            )
         )
 
         init(this, channelList)
@@ -99,10 +115,24 @@ class MainActivity : AppCompatActivity() {
             channel3Notifier.notifyWithImage(
                 title = "Picture", content = "Picture notification", image = R.drawable.notification_img,
                 actions = arrayListOf(
-                    NotificationAction(name = "Btn", pendingIntent = pendingIntent),
-                    NotificationAction(name = "Btn2", pendingIntent = pendingIntent, icon = R.drawable.ic_notifier),
-                    NotificationAction(name = "Btn3", pendingIntent = pendingIntent),
-                    NotificationAction(name = "Btn4", icon = R.drawable.ic_notifier, pendingIntent = pendingIntent)
+                    NotificationAction(
+                        name = "Btn",
+                        pendingIntent = pendingIntent
+                    ),
+                    NotificationAction(
+                        name = "Btn2",
+                        pendingIntent = pendingIntent,
+                        icon = R.drawable.ic_notifier
+                    ),
+                    NotificationAction(
+                        name = "Btn3",
+                        pendingIntent = pendingIntent
+                    ),
+                    NotificationAction(
+                        name = "Btn4",
+                        icon = R.drawable.ic_notifier,
+                        pendingIntent = pendingIntent
+                    )
                 )
             )
         }

@@ -1,8 +1,6 @@
-package  com.sandeep.easynotification
+package  com.sandeep.easynotification.notification
 
 import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -11,12 +9,17 @@ import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.app.Person
 import android.text.TextUtils
-import com.sandeep.easynotification.EasyNotification.Companion.notificationId
+import com.sandeep.easynotification.notification.EasyNotification.Companion.notificationId
+import com.sandeep.easynotification.notification.models.Conversation
+import com.sandeep.easynotification.notification.models.NotificationAction
+import com.sandeep.easynotification.notification.models.NotificationConfig
 
 
-open class PushNotification(protected val context: Context) : EasyNotification {
+open class PushNotification(protected val context: Context) :
+    EasyNotification {
 
-    override var config: NotificationConfig = NotificationConfig.Companion.Builder().build()
+    override var config: NotificationConfig = NotificationConfig.Companion.Builder()
+        .build()
 
 
     private fun showNotification(id: Int, notification: Notification) {

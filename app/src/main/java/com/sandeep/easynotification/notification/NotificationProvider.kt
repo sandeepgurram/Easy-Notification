@@ -1,12 +1,13 @@
-package com.example.sandy.notifysample
+package com.sandeep.easynotification.notification
 
 import android.content.Context
 import android.os.Build
 import android.text.TextUtils
 import android.widget.RemoteViews
-import com.sandeep.easynotification.*
-import com.sandeep.easynotification.EasyNotification.Companion.channels
-import com.sandeep.easynotification.EasyNotification.Companion.defaultChannel
+import com.sandeep.easynotification.notification.EasyNotification.Companion.channels
+import com.sandeep.easynotification.notification.EasyNotification.Companion.defaultChannel
+import com.sandeep.easynotification.notification.models.NotificationConfig
+import com.sandeep.easynotification.notification.models.Priority
 
 
 fun Context.simpleNotifier(): PushNotification {

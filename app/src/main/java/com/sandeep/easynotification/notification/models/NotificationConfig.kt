@@ -1,7 +1,8 @@
-package  com.sandeep.easynotification
+package  com.sandeep.easynotification.notification.models
 
 import android.os.Build
 import android.support.annotation.DrawableRes
+import com.sandeep.easynotification.R
 
 class NotificationConfig private constructor(val builder: Builder) {
 
@@ -28,7 +29,8 @@ class NotificationConfig private constructor(val builder: Builder) {
             internal var icon: Int = R.drawable.ic_notifier
             internal var sound: String? = null
             internal var cancellable = true
-            internal var priority: Priority = Priority.DEFAULT
+            internal var priority: Priority =
+                Priority.DEFAULT
             internal var channel = ""
             internal var vibrationPattern = longArrayOf(100, 100, 100) //default vibrate pattern
             internal var vibrate = false
