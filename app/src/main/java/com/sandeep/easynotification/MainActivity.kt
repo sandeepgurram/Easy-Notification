@@ -1,5 +1,7 @@
 package com.sandeep.easynotification
 
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -74,8 +76,17 @@ class MainActivity : AppCompatActivity() {
             headsUpNotifier().notify("Heads up notification", "this is content")
         }
 
+        val intent = Intent(this, SecondActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+
         picture_notification.setOnClickListener {
-            headsUpNotifier().notifyWithImage("Picture", "Picture notification", R.drawable.notification_big_picture)
+            headsUpNotifier().notifyWithImage(
+                title = "Picture", content = "Picture notification", image = R.drawable.notification_img,
+                actions = arrayListOf(NotificationAction(name = "Btn", pendingIntent = pendingIntent),NotificationAction(name = "Btn2", pendingIntent = pendingIntent)
+                ,NotificationAction(name = "Btn3", pendingIntent = pendingIntent),NotificationAction(name = "Btn4", pendingIntent = pendingIntent))
+            )
         }
 
         fab.setOnClickListener { view ->

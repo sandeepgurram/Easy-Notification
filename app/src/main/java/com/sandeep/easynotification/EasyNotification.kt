@@ -8,6 +8,7 @@ import android.os.Build
 import android.support.annotation.DrawableRes
 import com.sandeep.easynotification.Channel
 import com.sandeep.easynotification.Conversation
+import com.sandeep.easynotification.NotificationAction
 
 interface EasyNotification {
 
@@ -17,19 +18,22 @@ interface EasyNotification {
         title: String,
         content: String,
         expandedText: String = "",
-        pendingIntent: PendingIntent? = null
+        pendingIntent: PendingIntent? = null,
+        actions: ArrayList<NotificationAction>? = null
     ): Int
 
     fun notifyConversation(
         conversationList: ArrayList<Conversation>,
-        pendingIntent: PendingIntent? = null
+        pendingIntent: PendingIntent? = null,
+        actions: ArrayList<NotificationAction>? = null
     ): Int
 
     fun notifyWithImage(
         title: String,
         content: String,
         @DrawableRes image: Int = 0,
-        pendingIntent: PendingIntent? = null
+        pendingIntent: PendingIntent? = null,
+        actions: ArrayList<NotificationAction>? = null
     ): Int
 
     fun update(
@@ -37,7 +41,8 @@ interface EasyNotification {
         title: String,
         content: String,
         expandedText: String = "",
-        pendingIntent: PendingIntent? = null
+        pendingIntent: PendingIntent? = null,
+        actions: ArrayList<NotificationAction>? = null
     )
 
     fun updateWithImage(
@@ -45,8 +50,10 @@ interface EasyNotification {
         title: String,
         content: String,
         @DrawableRes image: Int = 0,
-        pendingIntent: PendingIntent? = null
+        pendingIntent: PendingIntent? = null,
+        actions: ArrayList<NotificationAction>? = null
     )
+
 
     fun remove(notificationId: Int)
 
