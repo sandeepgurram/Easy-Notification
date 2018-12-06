@@ -35,6 +35,7 @@ open class PushNotification(protected val context: Context,config : Notification
         getBuilder(pendingIntent, actions).apply {
             setContentTitle(title)
             setContentText(content)
+            setTicker("$title $content")
 
             if (!TextUtils.isEmpty(content))
                 setStyle(NotificationCompat.BigTextStyle().bigText(detials))
@@ -56,6 +57,8 @@ open class PushNotification(protected val context: Context,config : Notification
         actions: ArrayList<NotificationAction>?
     ) = getBuilder(pendingIntent, actions).apply {
 
+        setTicker("${conversationList[0].title} ${conversationList[0].content}")
+
         val style = NotificationCompat.MessagingStyle(Person.Builder().setName(conversationList[0].title).build())
             .setConversationTitle(conversationList[0].content)
         conversationList.forEach {
@@ -75,13 +78,14 @@ open class PushNotification(protected val context: Context,config : Notification
         }
     }
 
-    protected fun getBuilderWith(
+    private fun getBuilderWith(
         title: String, content: String, image: Int, pendingIntent: PendingIntent?,
         actions: ArrayList<NotificationAction>?
     ) =
         getBuilder(pendingIntent, actions).apply {
             setContentTitle(title)
             setContentText(content)
+            setTicker("$title $content")
 
             if (image != 0) {
 

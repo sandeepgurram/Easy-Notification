@@ -16,6 +16,7 @@ class NotificationConfig private constructor(val builder: Builder) {
     val vibrate = builder.vibrate
     val group = builder.group
     val isGroupSummary = builder.isGroupSummary
+    val enableTicker = builder.enableTicker
 
     companion object {
 
@@ -35,6 +36,7 @@ class NotificationConfig private constructor(val builder: Builder) {
             internal var vibrationPattern = longArrayOf(100, 100, 100) //default vibrate pattern
             internal var vibrate = false
             internal var group = ""
+            internal var enableTicker = true
 
             /**
              * For supporting in devices 4.x, group summary should be true
@@ -44,6 +46,10 @@ class NotificationConfig private constructor(val builder: Builder) {
 
             fun isGroupSummary(value: Boolean) = apply {
                 this.isGroupSummary = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) value else true
+            }
+
+            fun enableTicker(value: Boolean) = apply {
+                this.enableTicker = value
             }
 
             fun setGroup(groupName: String) = apply {
