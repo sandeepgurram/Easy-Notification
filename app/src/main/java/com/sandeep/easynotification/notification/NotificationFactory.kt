@@ -2,6 +2,8 @@ package com.sandeep.easynotification.notification
 
 import android.content.Context
 import android.widget.RemoteViews
+import com.sandeep.easynotification.notification.implementation.CustomPushNotification
+import com.sandeep.easynotification.notification.implementation.PushNotification
 import com.sandeep.easynotification.notification.models.NotificationConfig
 
 class NotificationFactory(val context: Context) {

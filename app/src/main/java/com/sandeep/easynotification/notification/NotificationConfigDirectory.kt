@@ -25,6 +25,9 @@ class NotificationConfigDirectory {
             CONFIG_FIXED_NOTIFICATION -> {
                 getFixedConfig(channelId)
             }
+            CONFIG_COMPACT-> {
+                getCompactConfig(channelId)
+            }
             else -> {
                 Log.e(TAG, "Notification type is mismatched")
                 getDefaultConfig(channelId)

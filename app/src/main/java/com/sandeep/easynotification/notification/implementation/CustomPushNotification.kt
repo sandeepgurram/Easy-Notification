@@ -1,4 +1,4 @@
-package  com.sandeep.easynotification.notification
+package  com.sandeep.easynotification.notification.implementation
 
 import android.app.PendingIntent
 import android.content.Context

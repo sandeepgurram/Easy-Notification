@@ -1,4 +1,4 @@
-package  com.sandeep.easynotification.notification
+package  com.sandeep.easynotification.notification.implementation
 
 import android.app.Notification
 import android.app.PendingIntent
@@ -9,6 +9,7 @@ import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.app.Person
 import android.text.TextUtils
+import com.sandeep.easynotification.notification.EasyNotification
 import com.sandeep.easynotification.notification.EasyNotification.Companion.notificationId
 import com.sandeep.easynotification.notification.models.Conversation
 import com.sandeep.easynotification.notification.models.NotificationAction
