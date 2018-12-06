@@ -5,14 +5,16 @@ import android.content.Context
 import android.support.v4.app.NotificationCompat
 import android.widget.RemoteViews
 import com.sandeep.easynotification.notification.models.NotificationAction
+import com.sandeep.easynotification.notification.models.NotificationConfig
 
 
 class CustomPushNotification(
     context: Context,
     private val notificationLayoutExpanded: RemoteViews?,
     private val notificationLayout: RemoteViews?,
-    private val fullCustomised: Boolean
-) : PushNotification(context) {
+    private val fullCustomised: Boolean,
+    config: NotificationConfig
+) : PushNotification(context, config) {
 
     /* override fun notify(
          title: String,

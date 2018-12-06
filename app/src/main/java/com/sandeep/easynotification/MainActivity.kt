@@ -8,8 +8,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.RemoteViews
-import com.sandeep.easynotification.notification.*
 import com.sandeep.easynotification.notification.EasyNotification.Companion.init
+import com.sandeep.easynotification.notification.NotificationConfigDirectory
+import com.sandeep.easynotification.notification.NotificationConfigDirectory.Companion.CONFIG_DEFAULT
+import com.sandeep.easynotification.notification.NotificationFactory
 import com.sandeep.easynotification.notification.models.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -49,11 +51,34 @@ class MainActivity : AppCompatActivity() {
 
         init(this, channelList)
 
-        val simpleNotifier = simpleNotifier()
-        val compactNotification = compactNotifier(groupName = GROUP_1)
-        val compactNotificationGroup = compactNotifier(groupName = GROUP_1, isGroupSummary = true)
-        val channel2Notifier = channelNotifier(channel2)
-        val channel3Notifier = channelNotifier(channel3)
+        val simpleNotifier =
+            NotificationFactory(this).getNotification(NotificationConfigDirectory().getConfig(CONFIG_DEFAULT))
+
+        val compactNotification =
+            NotificationFactory(this).getNotification(NotificationConfigDirectory().getCompactConfig(groupName = GROUP_1))
+
+        val compactNotificationGroup = NotificationFactory(this).getNotification(
+            NotificationConfigDirectory().getCompactConfig(
+                groupName = GROUP_1,
+                isGroupSummary = true
+            )
+        )
+
+        val channel2Notifier =
+            NotificationFactory(this).getNotification(NotificationConfigDirectory().getConfig(CONFIG_DEFAULT, channel2))
+
+        val channel3Notifier =
+            NotificationFactory(this).getNotification(NotificationConfigDirectory().getConfig(CONFIG_DEFAULT, channel3))
+
+        val notificationLayout = RemoteViews("com.sandeep.easynotification", R.layout.notification_small)
+        val notificationLayoutExpanded = RemoteViews("com.sandeep.easynotification", R.layout.notification_big)
+
+        val customViewNotification =
+            NotificationFactory(this).getCustomNotification(
+                NotificationConfigDirectory().getConfig(CONFIG_DEFAULT, channel2),
+                notificationLayout = notificationLayout,
+                notificationLayoutExpanded = notificationLayoutExpanded
+            )
 
         channel_1_grp_1.setOnClickListener {
             compactNotification.notify(
@@ -138,21 +163,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         custom_notification.setOnClickListener {
-            val notificationLayout = RemoteViews("com.sandeep.easynotification", R.layout.notification_small)
-            val notificationLayoutExpanded = RemoteViews("com.sandeep.easynotification", R.layout.notification_big)
 
-//            notificationLayout.setTextViewText(R.id.notification_title, "This is text")
+            //            notificationLayout.setTextViewText(R.id.notification_title, "This is text")
 
-            customViewNotification(
-                channel,
-                notificationLayout = notificationLayout,
-                notificationLayoutExpanded = notificationLayoutExpanded
-            )
-                .notify("", "")
+            customViewNotification.notify("", "")
         }
 
         conversation_notification.setOnClickListener {
-            simpleNotifier().notifyConversation(
+            simpleNotifier.notifyConversation(
                 arrayListOf(
                     Conversation("pp1", "content of 1"),
                     Conversation("pp2", "content of 2"),

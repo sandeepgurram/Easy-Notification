@@ -1,3 +1,4 @@
+/*
 package com.sandeep.easynotification.notification
 
 import android.content.Context
@@ -22,6 +23,7 @@ fun Context.simpleNotifier(): PushNotification {
     return notification
 }
 
+*/
 /*fun Context.headsUpNotifier(channelID: String = ""): PushNotification {
     val notification = PushNotification(this)
 
@@ -32,7 +34,8 @@ fun Context.simpleNotifier(): PushNotification {
     }.build()
 
     return notification
-}*/
+}*//*
+
 
 fun Context.channelNotifier(
     channelID: String
@@ -48,11 +51,13 @@ fun Context.channelNotifier(
     return notification
 }
 
+*/
 /**
  * From Android 7.0 (API level 24) and higher, the system automatically builds a summary for your group using snippets of text from each notification.
  * <br>
  * To support older versions, which cannot show a nested group of notifications, you must create an extra notification that acts as the summary
- */
+ *//*
+
 fun Context.compactNotifier(
     channelID: String = "", groupName: String? = null,
     isGroupSummary: Boolean = false
@@ -125,14 +130,10 @@ fun Context.customViewNotification(
             fullCustomised = fullCustomised
         )
 
-    customPushNotification.config = NotificationConfig.Companion.Builder().apply {
-        setChannel(getChannelID(channelID))
-        setPriority(Priority.HIGH)
-        setVibration(true)
-    }.build()
 
     return customPushNotification
 
 }
 
 
+*/

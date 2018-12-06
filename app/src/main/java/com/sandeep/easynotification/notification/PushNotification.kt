@@ -15,12 +15,10 @@ import com.sandeep.easynotification.notification.models.NotificationAction
 import com.sandeep.easynotification.notification.models.NotificationConfig
 
 
-open class PushNotification(protected val context: Context) :
+open class PushNotification(protected val context: Context,config : NotificationConfig) :
     EasyNotification {
 
-    override var config: NotificationConfig = NotificationConfig.Companion.Builder()
-        .build()
-
+    override var config: NotificationConfig = config
 
     private fun showNotification(id: Int, notification: Notification) {
         with(NotificationManagerCompat.from(context)) {
