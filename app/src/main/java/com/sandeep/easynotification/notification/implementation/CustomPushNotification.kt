@@ -2,7 +2,7 @@ package  com.sandeep.easynotification.notification.implementation
 
 import android.app.PendingIntent
 import android.content.Context
-import android.support.v4.app.NotificationCompat
+import androidx.core.app.NotificationCompat
 import android.widget.RemoteViews
 import com.sandeep.easynotification.notification.models.NotificationAction
 import com.sandeep.easynotification.notification.models.NotificationConfig

@@ -1,6 +1,6 @@
 package  com.sandeep.easynotification.notification.models
 
-import android.support.v4.app.NotificationCompat
+import androidx.core.app.NotificationCompat
 
 enum class Priority(priority: Int) {
     DEFAULT(NotificationCompat.PRIORITY_DEFAULT),

@@ -5,9 +5,9 @@ import android.app.PendingIntent
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Build
-import android.support.v4.app.NotificationCompat
-import android.support.v4.app.NotificationManagerCompat
-import android.support.v4.app.Person
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.Person
 import android.text.TextUtils
 import com.sandeep.easynotification.notification.EasyNotification
 import com.sandeep.easynotification.notification.EasyNotification.Companion.notificationId

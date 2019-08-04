@@ -2,7 +2,7 @@ package com.sandeep.easynotification.notification.models
 
 import android.app.NotificationManager
 import android.os.Build
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 
 data class Channel(
     val channelId: String,

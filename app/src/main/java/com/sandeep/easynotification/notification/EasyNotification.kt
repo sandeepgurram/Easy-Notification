@@ -5,7 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
-import android.support.annotation.DrawableRes
+import androidx.annotation.DrawableRes
 import com.sandeep.easynotification.notification.models.Channel
 import com.sandeep.easynotification.notification.models.Conversation
 import com.sandeep.easynotification.notification.models.NotificationAction
@@ -71,8 +71,8 @@ interface EasyNotification {
         // the NotificationChannel class is new and not in the support library
         fun init(context: Context, channelsList: ArrayList<Channel>) {
 
-            if (channelsList.size ?: 0 <= 0) {
-                throw Throwable("Channels list is empty, add minium one channel")
+            if (channelsList.size <= 0) {
+                throw Throwable("Channels list is empty, add minimum one channel")
                 return
             }
 
@@ -104,6 +104,8 @@ interface EasyNotification {
                 val notificationManager: NotificationManager =
                     context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.createNotificationChannel(channel)
+            }else{
+                return
             }
         }
     }

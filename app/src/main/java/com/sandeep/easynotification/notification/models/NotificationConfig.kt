@@ -1,7 +1,7 @@
 package  com.sandeep.easynotification.notification.models
 
 import android.os.Build
-import android.support.annotation.DrawableRes
+import androidx.annotation.DrawableRes
 import com.sandeep.easynotification.R
 
 class NotificationConfig private constructor(val builder: Builder) {
