@@ -10,6 +10,7 @@ import com.sandeep.easynotification.notification.models.Channel
 import com.sandeep.easynotification.notification.models.Conversation
 import com.sandeep.easynotification.notification.models.NotificationAction
 import com.sandeep.easynotification.notification.models.NotificationConfig
+import java.lang.ref.WeakReference
 
 interface EasyNotification {
 
@@ -69,7 +70,7 @@ interface EasyNotification {
 
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
-        fun init(context: Context, channelsList: ArrayList<Channel>) {
+        fun init(contextRef: WeakReference<Context>, channelsList: ArrayList<Channel>) {
 
             if (channelsList.size <= 0) {
                 throw Throwable("Channels list is empty, add minimum one channel")
@@ -81,7 +82,7 @@ interface EasyNotification {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 channelsList.forEach {
                     createNoticationChannelWith(
-                        context, it.channelId, it.name, it.description, it.importance.ordinal
+                        contextRef, it.channelId, it.name, it.description, it.importance.ordinal
                     )
                     if (it.isDefaulf)
                         defaultChannel = it
@@ -90,7 +91,7 @@ interface EasyNotification {
         }
 
         private fun createNoticationChannelWith(
-            context: Context, channelId: String,
+            contextRef: WeakReference<Context>, channelId: String,
             name: String,
             descriptionText: String,
             importance: Int
@@ -102,7 +103,7 @@ interface EasyNotification {
                 }
                 // Register the channel with the system
                 val notificationManager: NotificationManager =
-                    context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                    contextRef.get()?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.createNotificationChannel(channel)
             }else{
                 return
