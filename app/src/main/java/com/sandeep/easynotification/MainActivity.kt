@@ -15,6 +15,7 @@ import com.sandeep.easynotification.notification.NotificationFactory
 import com.sandeep.easynotification.notification.models.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import java.lang.ref.WeakReference
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        init(this, channelList)
+        init(WeakReference(this), channelList)
 
         val simpleNotifier =
             NotificationFactory(this).getNotification(NotificationConfigDirectory().getConfig(CONFIG_DEFAULT))
